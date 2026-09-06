@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.ui.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,24 +16,29 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
+    @Step("Open home page")
     public HomePage open() {
         driver.get(TestConfig.BASE_URL + "/");
         wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
         return this;
     }
 
+    @Step("Click login button on home page")
     public void clickLoginButton() {
         click(LOGIN_BUTTON);
     }
 
+    @Step("Check order button visibility")
     public boolean isOrderButtonVisible() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(ORDER_BUTTON)).isDisplayed();
     }
 
+    @Step("Select constructor section: {sectionName}")
     public void selectSection(String sectionName) {
         click(sectionTab(sectionName));
     }
 
+    @Step("Check constructor section is selected: {sectionName}")
     public boolean isSectionSelected(String sectionName) {
         return wait.until(driver -> {
             String classes = driver.findElement(sectionTab(sectionName)).getAttribute("class");

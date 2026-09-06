@@ -1,5 +1,7 @@
 target/
 .allure/
+allure-results/
+allure-report/
 .idea/
 *.iml
 tools/

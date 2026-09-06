@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.ui.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,12 +15,14 @@ public class ForgotPasswordPage extends BasePage {
         super(driver);
     }
 
+    @Step("Open forgot password page")
     public ForgotPasswordPage open() {
         driver.get(TestConfig.BASE_URL + "/forgot-password");
         wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
         return this;
     }
 
+    @Step("Click login link on forgot password page")
     public void clickLoginLink() {
         click(LOGIN_LINK);
     }

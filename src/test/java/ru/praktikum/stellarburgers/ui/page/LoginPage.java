@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.ui.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,11 +15,13 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("Wait until login page is open")
     public LoginPage waitUntilOpen() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
         return this;
     }
 
+    @Step("Login user")
     public void login(TestUser user) {
         type(inputByLabel("Email"), user.getEmail());
         type(inputByLabel("Пароль"), user.getPassword());

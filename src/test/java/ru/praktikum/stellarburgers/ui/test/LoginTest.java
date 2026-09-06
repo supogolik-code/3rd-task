@@ -1,7 +1,10 @@
 package ru.praktikum.stellarburgers.ui.test;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +48,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Before
+    @Step("Prepare test user")
     public void createUser() {
         userApi = new UserApiHelper();
         user = TestUser.unique();
@@ -52,6 +56,7 @@ public class LoginTest extends BaseUiTest {
     }
 
     @After
+    @Step("Delete test user")
     public void deleteUser() {
         if (userApi != null && accessToken != null) {
             userApi.delete(accessToken);
@@ -59,6 +64,8 @@ public class LoginTest extends BaseUiTest {
     }
 
     @Test
+    @DisplayName("User can log in from selected entry point")
+    @Description("Checks user login from the home button, account link, registration form, and forgot password form.")
     public void userCanLoginFromSelectedEntryPoint() {
         openLoginPage();
         new LoginPage(driver).waitUntilOpen().login(user);
@@ -67,6 +74,7 @@ public class LoginTest extends BaseUiTest {
                 new HomePage(driver).isOrderButtonVisible());
     }
 
+    @Step("Open login page from selected entry point")
     private void openLoginPage() {
         switch (entryPoint) {
             case HOME_BUTTON:

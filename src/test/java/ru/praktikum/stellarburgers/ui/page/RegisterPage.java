@@ -1,5 +1,6 @@
 package ru.praktikum.stellarburgers.ui.page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,17 +16,20 @@ public class RegisterPage extends BasePage {
         super(driver);
     }
 
+    @Step("Open registration page")
     public RegisterPage open() {
         driver.get(TestConfig.BASE_URL + "/register");
         wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
         return this;
     }
 
+    @Step("Register user with valid data")
     public void register(TestUser user) {
         fill(user);
         submitWithEnter(inputByLabel("Пароль"));
     }
 
+    @Step("Register user with password: {password}")
     public void registerWithPassword(TestUser user, String password) {
         type(inputByLabel("Имя"), user.getName());
         type(inputByLabel("Email"), user.getEmail());
@@ -33,15 +37,18 @@ public class RegisterPage extends BasePage {
         submitWithEnter(inputByLabel("Пароль"));
     }
 
+    @Step("Check registration page is open")
     public boolean isOpen() {
         return driver.getCurrentUrl().equals(TestConfig.BASE_URL + "/register")
                 && wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE)).isDisplayed();
     }
 
+    @Step("Click login link on registration page")
     public void clickLoginLink() {
         click(LOGIN_LINK);
     }
 
+    @Step("Fill registration form")
     private void fill(TestUser user) {
         type(inputByLabel("Имя"), user.getName());
         type(inputByLabel("Email"), user.getEmail());

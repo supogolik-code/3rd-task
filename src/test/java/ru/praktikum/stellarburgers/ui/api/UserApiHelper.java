@@ -1,7 +1,9 @@
 package ru.praktikum.stellarburgers.ui.api;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.qameta.allure.Step;
 import ru.praktikum.stellarburgers.ui.config.TestConfig;
 import ru.praktikum.stellarburgers.ui.model.TestUser;
 
@@ -14,15 +16,19 @@ import java.net.http.HttpResponse;
 public class UserApiHelper {
 
     private final HttpClient client = HttpClient.newHttpClient();
+    private final Gson gson = new Gson();
 
+    @Step("Create test user via API")
     public String create(TestUser user) {
         return sendForToken("/auth/register", user);
     }
 
+    @Step("Login test user via API")
     public String login(TestUser user) {
         return sendForToken("/auth/login", user);
     }
 
+    @Step("Delete test user via API")
     public void delete(String accessToken) {
         if (accessToken == null) {
             return;
@@ -39,9 +45,7 @@ public class UserApiHelper {
     }
 
     private String sendForToken(String path, TestUser user) {
-        String body = String.format(
-                "{\"email\":\"%s\",\"password\":\"%s\",\"name\":\"%s\"}",
-                user.getEmail(), user.getPassword(), user.getName());
+        String body = gson.toJson(user);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(TestConfig.API_URL + path))
                 .header("Content-Type", "application/json")

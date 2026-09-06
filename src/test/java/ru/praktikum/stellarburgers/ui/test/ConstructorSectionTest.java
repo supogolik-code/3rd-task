@@ -1,7 +1,9 @@
 package ru.praktikum.stellarburgers.ui.test;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -33,6 +35,8 @@ public class ConstructorSectionTest extends BaseUiTest {
     }
 
     @Test
+    @DisplayName("Constructor section can be selected")
+    @Description("Checks that each constructor section tab becomes active after selection.")
     public void constructorSectionCanBeSelected() {
         HomePage homePage = new HomePage(driver).open();
         if ("Булки".equals(sectionName)) {
